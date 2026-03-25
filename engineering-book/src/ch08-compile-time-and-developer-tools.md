@@ -55,11 +55,18 @@ sudo apt install mold  # Ubuntu 22.04+
 # The macOS linker (ld64) is already quite fast; if you need faster:
 # brew install sold     # sold = mold for Mach-O (experimental, less mature)
 # In practice, macOS link times are rarely a bottleneck.
+```
 
+```toml
 # Use mold for linking
 # .cargo/config.toml
 [target.x86_64-unknown-linux-gnu]
 rustflags = ["-C", "link-arg=-fuse-ld=mold"]
+```
+
+```bash
+# See https://github.com/rui314/mold/blob/main/docs/mold.md#environment-variables
+export MOLD_JOBS=1
 
 # Verify mold is being used
 cargo build -v 2>&1 | grep mold
