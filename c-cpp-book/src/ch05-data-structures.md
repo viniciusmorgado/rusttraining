@@ -236,7 +236,7 @@ fn main() {
 
 # Rust tuple structs
 - Rust tuple structs are similar to tuples and individual fields don't have names
-    - Like tuples, individual elements are accessed using .0, .1, .2, .... A common use case for tuple structs is to wrap primitive types to create custom types. **This can useful to avoid mixing differing values of the same type**
+    - Like tuples, individual elements are accessed using .0, .1, .2, .... A common use case for tuple structs is to wrap primitive types to create custom types. **This can be useful to avoid mixing differing values of the same type**
 ```rust
 struct WeightInGrams(u32);
 struct WeightInMilligrams(u32);
