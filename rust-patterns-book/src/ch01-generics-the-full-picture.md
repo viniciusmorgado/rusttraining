@@ -351,6 +351,10 @@ impl<K: Eq + Hash + Clone, V> Cache<K, V> {
     }
 
     fn insert(&mut self, key: K, value: V) {
+        if self.capacity == 0 {
+            // no capacity!
+            return;
+        }
         if self.map.contains_key(&key) {
             self.map.insert(key, value);
             return;
@@ -374,6 +378,7 @@ impl<K: Eq + Hash + Clone, V> Cache<K, V> {
 }
 
 fn main() {
+    // Test of a basic cache
     let mut cache = Cache::new(3);
     cache.insert("a", 1);
     cache.insert("b", 2);
@@ -383,6 +388,14 @@ fn main() {
     cache.insert("d", 4); // Evicts "a"
     assert_eq!(cache.get(&"a"), None);
     assert_eq!(cache.get(&"d"), Some(&4));
+
+    // Left to the reader: what type should `capacity` attribute be,
+    // to ensure that such a useless cache cannot be defined?
+    let mut empty_cache = Cache::new(0);
+    empty_cache.insert("0", 0);
+    assert_eq!(empty_cache.get(&"0"), None);
+    assert_eq!(empty_cache.len(), 0);
+
     println!("Cache works! len = {}", cache.len());
 }
 ```
